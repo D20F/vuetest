@@ -1,7 +1,5 @@
 <template>
-  <div class="hello">
-    <div @click="ccc">ccccccccccccccccccccc</div>
-    <div class="sendAnimationbox" v-if="loadingText">
+    <div class="sendAnimationbox" >
         <div class="sendAnimation"></div>
         <div class="container">
             <div class="box">
@@ -17,55 +15,26 @@
         </div>
         <p class="data">{{loadingText}}</p>
     </div>
-  </div>
 </template>
-
 <script>
-import mix from './mix'
+
 
 
 
 export default {
-  name: 'test',
-  mixins:[mix],
-  props: ['data','msg'],
-  data(){
-    return{
-      loadingText:false,
-    }
-  },
-  created(){
+    name: 'sendAnimation',
+    props:['loadingText'],
+    data(){
+        return {
 
-  },
-  methods:{
-   async ccc(){
-          function name(params) {
-            return new Promise((resolve,reject)=>{
-              setTimeout(() => {
-                var a =  params + 1
-                resolve(a)
-                reject(a)
-              }, 2000);
-            })
-          }
-          const sendMessage = (params) => {
-            return name(params)
-          }
-          // let res =  sendMessage(1);
-          this.loadingText = '加载'
-          sendMessage(1).then((val)=>{
-          this.loadingText = '成功'
-          this.loadingText = false
-            console.log(val)
-          })
-          // console.log(res)
-
-    }
-  }
+        }
+    },
+    created(){
+      
+    },
+   
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 div{vertical-align: top;}
 .data{
@@ -333,4 +302,5 @@ div{vertical-align: top;}
         opacity: 0;
     }
 }
+
 </style>

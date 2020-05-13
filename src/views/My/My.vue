@@ -1,6 +1,6 @@
 <template>
     <div class="maxBOX">
-
+        <img src="@/assets/img/7k.png" alt="">
     </div>
 </template>
 <script>

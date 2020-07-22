@@ -22,4 +22,17 @@
 
 
 
-                                                                                                                                                                                                                                                                                                                                                                            |
+direction
+wrap
+justify
+content
+align
+items
+order
+grow
+shrink
+basis
+self
+
+
+

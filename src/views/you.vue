@@ -1,12 +1,14 @@
 <template>
-    <div class="maxBOX">
-        <img src="@/assets/img/7k.png" alt="">
+    <div class="">
+        {{data}}        
+        <button @click="callfather">调用父组件函数</button>        
     </div>
 </template>
 <script>
 
 
 export default {
+    props:['data'],
     data(){
         return {
             
@@ -16,7 +18,12 @@ export default {
       
     },
     methods:{
-       
+       callfather(){
+            this.$emit('father', '调用父组件函数')
+       },
+       childfun(val){
+           console.log('父组件调用子组件函数',val)
+       }
     },
     computed:{
         

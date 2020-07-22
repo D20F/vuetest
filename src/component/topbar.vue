@@ -35,7 +35,7 @@ export default {
     props:['title', 'mode', 'backMode'],
     data(){
         return {
-
+            
         }
     },
     created(){

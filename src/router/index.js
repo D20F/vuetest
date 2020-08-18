@@ -8,15 +8,9 @@ Vue.use(VueRouter)
 const routes = [
   {
     path:"/",
-    name:"My",
-    explain:"我的",
-    component:() => import(/* webpackChunkName: "Setting" */ "../views/My.vue")
-  },
-  {
-    path:"/you",
-    name:"you",
-    explain:"我的",
-    component:() => import(/* webpackChunkName: "Setting" */ "../views/you.vue")
+    name:"main",
+    explain:"主页面",
+    component:() => import("@/view/Home/index.vue")
   },
 ]
 
@@ -29,15 +23,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // console.log('to',to);
   // console.log('from',from);
-  // console.log(store.state.beRouter);
-  if(to.name == 'Wallet' && from.name == 'logIn'){
-    // store.commit('beRouterFun', from.name)
-    next(false)
-  }else{
-    // store.commit('beRouterFun', to.name)
-    next();
-  }
-
+  next()
 })
 
 export default router

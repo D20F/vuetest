@@ -1,20 +1,29 @@
 import Vue from 'vue'
-import App from './App.vue'
 
-import router from './router'
+import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+
+import Viser from 'viser-vue'
+
+import '@/styles/index.scss' // 公共 css
+
+import App from './App'
 import store from './store'
-import "./util/rem.js"
+import router from './router'
+
+import '@/components/index' // 全局注册组件
 
 
-import component_plugins from './components/plugins'
-import vuetify from './plugins/vuetify';
-Vue.use(component_plugins);
+Vue.use(Viser)
 
 Vue.config.productionTip = false
 
+import '@/directive/index' // 全局指令
+import vuetify from './plugins/vuetify'
+
 new Vue({
-    store,
-    router,
-    vuetify,
-    render: h => h(App)
-}).$mount('#app')
+  el: '#app',
+  store,
+  router,
+  vuetify,
+  render: h => h(App)
+})

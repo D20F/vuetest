@@ -12,7 +12,7 @@ import router from './router'
 
 import '@/components/index' // 全局注册组件
 
-
+import '@/utils/rem'
 Vue.use(Viser)
 
 Vue.config.productionTip = false

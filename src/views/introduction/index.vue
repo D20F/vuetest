@@ -64,7 +64,11 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch("system/tog_catalogue", this.point);
+                    this.$store.dispatch("system/add_notify", {
+                type: "success",
+                data: "复制成功",
+                time: 2000,
+            });
     },
     mounted() {},
     methods: {},

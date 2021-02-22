@@ -8,7 +8,27 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: "/",
-        component: () => import("@/views/introduction")
+        component: () => import("@/views/music")
+    },
+    
+    {
+        path: "/video",
+        component: () => import("@/views/video")
+    },
+
+    {
+        path: "/book",
+        component: () => import("@/views/book")
+    },
+
+    {
+        path: "/image",
+        component: () => import("@/views/image")
+    },
+    
+    {
+        path: "/my",
+        component: () => import("@/views/my")
     },
 ]
 

@@ -5,19 +5,17 @@
             v-model="value"
             :background-color="color"
             dark
-            
             grow
         >
-            <v-btn text color="rgba(0, 0, 0, 0);" height="100%">
-                <span>Video</span>
-
-                <v-icon>mdi-television-play</v-icon>
-            </v-btn>
-
             <v-btn color="rgba(0, 0, 0, 0);" text height="100%">
                 <span>Music</span>
 
                 <v-icon>mdi-music-note</v-icon>
+            </v-btn>
+            <v-btn text color="rgba(0, 0, 0, 0);" height="100%">
+                <span>Video</span>
+
+                <v-icon>mdi-television-play</v-icon>
             </v-btn>
 
             <v-btn color="rgba(0, 0, 0, 0);" text height="100%">

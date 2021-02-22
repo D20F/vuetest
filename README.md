@@ -42,3 +42,10 @@ npm i viser-vue
 
 
 名词 复习 完成
+
+this.$store.dispatch("system/add_notify", {
+    type: "success",
+    data: "复制成功",
+    time: 2000,
+});
+    

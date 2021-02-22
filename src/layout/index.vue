@@ -7,10 +7,14 @@
         <div class="tabbar">
             <footers />
         </div>
-        <v-navigation-drawer v-model="drawer" absolute left temporary style="box-shadow: none;">
-            <div>2113131</div>
-            <div>2113131</div>
-            <div>2113131</div>
+        <v-navigation-drawer
+            v-model="drawer"
+            absolute
+            temporary
+            width="300"
+            style="box-shadow: none"
+        >
+            <drawer />
         </v-navigation-drawer>
 
         <!-- 提示 -->
@@ -19,10 +23,11 @@
 </template>
 <script>
 import footers from "./component/footer";
-
+import drawer from "./component/drawer";
 export default {
     components: {
         footers,
+        drawer,
     },
     data() {
         return {

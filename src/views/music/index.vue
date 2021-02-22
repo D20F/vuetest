@@ -30,7 +30,7 @@ export default {
         // let x,y,state;
         // console.log(document.body.clientWidth)
 
-        // console.log('写成指令')
+        console.log('写成指令')
 
         // function touch(event) {
         //     var event = event || window.event;

@@ -1,9 +1,28 @@
 <template>
     <div class="box">
-        <div id="container"></div>
+        <swiper class="s">
+            <swiper-item>
+                <div class="one" @click="c">
+                    <p>{{ swipeDirection }}</p>
+                </div>
+            </swiper-item>
+            <swiper-item>
+                <div class="two" @click="c">
+                    <p>{{ swipeDirection }}</p>
+                </div>
+            </swiper-item>
+            <swiper-item>
+                <div class="three" @click="c">
+                    <p>{{ swipeDirection }}</p>
+                </div>
+            </swiper-item>
+            <swiper-item>
+                <div class="four" @click="c">
+                    <p>{{ swipeDirection }}</p>
+                </div>
+            </swiper-item>
+        </swiper>
 
-        <p>{{ map }}</p>
-        <p>{{ maps }}</p>
     </div>
 </template>
 
@@ -15,51 +34,16 @@ export default {
     data() {
         return {
             swipeDirection: "None",
-            map: "",
-            maps: "",
+            show:false
         };
     },
     computed: {},
     created() {
-       
 
-        // document.addEventListener("touchstart", touch, false);
-        // document.addEventListener("touchmove", touch, false);
-        // document.addEventListener("touchend", touch, false);
-
-        // let x,y,state;
-        // console.log(document.body.clientWidth)
-
-        console.log('写成指令')
-
-        // function touch(event) {
-        //     var event = event || window.event;
-        //     var oInp = document.getElementById("inp");
-        //     switch (event.type) {
-        //         case "touchstart":
-        //             console.log("touchstart",event.touches[0].clientX +"," +event.touches[0].clientY );
-        //             x = event.touches[0].clientX;
-        //             y = event.touches[0].clientY;
-        //             break;
-        //         case "touchend":
-        //             // console.log("touchend",event.changedTouches[0].clientX +"," +event.changedTouches[0].clientY);
-
-        //             break;
-        //         case "touchmove":
-        //             console.log("touchmove",event.touches[0].clientX +"," +event.touches[0].clientY);
-        //             if(event.changedTouches[0].clientX - x >= 0){
-        //                 console.log('右')
-        //             }else if(event.changedTouches[0].clientX - x <= 0){
-        //                 console.log('左')
-        //             }else{
-        //                 console.log('不动')
-        //             }
-        //             break;
-        //     }
-        // }
     },
     methods: {
-        swipe() {},
+        c() {
+        },
     },
 };
 </script>
@@ -72,8 +56,29 @@ export default {
 p {
     color: black;
 }
-#container {
+.s {
     width: 100%;
-    height: 50%;
+    height: 100%;
+    margin: 0 auto;
+}
+.one {
+    width: 100%;
+    height: 100%;
+    background: seagreen;
+}
+.two {
+    width: 100%;
+    height: 100%;
+    background: RGB(223, 73, 72);
+}
+.three {
+    width: 100%;
+    height: 100%;
+    background: aqua;
+}
+.four {
+    width: 100%;
+    height: 100%;
+    background: violet;
 }
 </style>

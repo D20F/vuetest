@@ -22,10 +22,16 @@
 </template>
 <script>
 /**
- * 索引切换时触发 
- * change
+ * change 索引切换时触发
  * @param {number} index
-**/
+ **/
+/**
+ * start  开始滑动
+ **/
+/**
+ * horizontal 滑动中
+ * @param {object} val
+ **/
 
 export default {
     name: "drawer",
@@ -46,6 +52,7 @@ export default {
     },
     methods: {
         horizontal(val) {
+            this.$emit("horizontal", val);
             // 滑动中
             if (val.direction == "right") {
                 if (this.degree == 0) {
@@ -53,18 +60,17 @@ export default {
                 }
                 this.degree = this.degree - val.distance;
             } else {
-                if (this.degree < this.real_index * 100) {
-                    if (this.slot_length == this.real_index) {
-                        this.degree = (this.slot_length - 1) * 100;
-                        this.maskStart(val);
-                    } else {
-                        this.degree = this.degree + val.distance;
-                    }
+                if (this.degree >= (this.slot_length - 1) * 100) {
+                    this.degree = (this.slot_length - 1) * 100;
+                    this.maskStart(val);
+                } else {
+                    this.degree = this.degree + val.distance;
                 }
             }
         },
         start() {
             // 滑动开始
+            this.$emit("start");
         },
         end() {
             // 滑动结束
@@ -72,13 +78,12 @@ export default {
             // 防止多次添加
             let mistouch = true;
 
-
             if (this.degree == 0) {
                 // console.log("最左");
                 this.real_index = 1;
                 this.maskEnd();
                 return;
-            }else if (this.degree >= 50 && this.real_index == 1) {
+            } else if (this.degree >= 50 && this.real_index == 1) {
                 // console.log("左左右");
                 let s = setInterval(() => {
                     if (this.degree >= 100) {
@@ -107,12 +112,15 @@ export default {
                     }
                 }, 2);
                 return;
-            }else if (this.degree >= (this.slot_length - 1) * 100) {
+            } else if (this.degree >= (this.slot_length - 1) * 100) {
                 // console.log("右触底");
                 this.real_index = this.slot_length;
                 this.maskEnd();
                 return;
-            }else if ( this.degree <= (this.slot_length - 2) * 100 + 50 && this.real_index == this.slot_length ) {
+            } else if (
+                this.degree <= (this.slot_length - 2) * 100 + 50 &&
+                this.real_index == this.slot_length
+            ) {
                 // console.log("右右左");
                 let s = setInterval(() => {
                     if (this.degree <= (this.slot_length - 2) * 100) {
@@ -127,7 +135,10 @@ export default {
                     }
                 }, 2);
                 return;
-            } else if ( this.degree >= (this.slot_length - 2) * 100 + 50 && this.real_index == this.slot_length ) {
+            } else if (
+                this.degree >= (this.slot_length - 2) * 100 + 50 &&
+                this.real_index == this.slot_length
+            ) {
                 // console.log("右右左");
                 let s = setInterval(() => {
                     if (this.degree >= (this.slot_length - 1) * 100) {
@@ -143,7 +154,10 @@ export default {
                 return;
             }
 
-            if ( this.degree < (this.real_index - 1) * 100 && this.degree < (this.real_index - 2) * 100 + 50) {
+            if (
+                this.degree < (this.real_index - 1) * 100 &&
+                this.degree < (this.real_index - 2) * 100 + 50
+            ) {
                 let s = setInterval(() => {
                     if (this.degree <= (this.real_index - 2) * 100) {
                         this.degree = (this.real_index - 2) * 100;
@@ -156,7 +170,10 @@ export default {
                         this.degree = this.degree - 1;
                     }
                 }, 2);
-            } else if ( this.degree < (this.real_index - 1) * 100 && this.degree >= (this.real_index - 2) * 100 + 50) {
+            } else if (
+                this.degree < (this.real_index - 1) * 100 &&
+                this.degree >= (this.real_index - 2) * 100 + 50
+            ) {
                 let s = setInterval(() => {
                     if (this.degree >= (this.real_index - 1) * 100) {
                         this.degree = (this.real_index - 1) * 100;
@@ -168,7 +185,10 @@ export default {
                         this.degree = this.degree + 1;
                     }
                 }, 2);
-            } else if ( this.degree > (this.real_index - 1) * 100 && this.degree < (this.real_index - 1) * 100 + 50) {
+            } else if (
+                this.degree > (this.real_index - 1) * 100 &&
+                this.degree < (this.real_index - 1) * 100 + 50
+            ) {
                 let s = setInterval(() => {
                     if (this.degree <= (this.real_index - 1) * 100) {
                         this.degree = (this.real_index - 1) * 100;
@@ -180,7 +200,10 @@ export default {
                         this.degree = this.degree - 1;
                     }
                 }, 2);
-            } else if ( this.degree > (this.real_index - 1) * 100 && this.degree >= (this.real_index - 1) * 100 + 50) {
+            } else if (
+                this.degree > (this.real_index - 1) * 100 &&
+                this.degree >= (this.real_index - 1) * 100 + 50
+            ) {
                 let s = setInterval(() => {
                     if (this.degree >= this.real_index * 100) {
                         this.degree = this.real_index * 100;

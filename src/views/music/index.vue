@@ -1,29 +1,40 @@
 <template>
     <div class="box">
-
-        <swiper class="s" :index="index" @change="change">
+        <swiper
+            class="s"
+            :index="index"
+            @change="change"
+            @horizontal="horizontal"
+        >
             <swiper-item>
                 <div class="one" @click="c">
-                    <p>{{ swipeDirection }}</p>
+                    <p>{{ index }}</p>
+                    <p>{{ state.direction }}</p>
+                    <p>{{ state.distance }}</p>
                 </div>
             </swiper-item>
             <swiper-item>
                 <div class="two" @click="c">
-                    <p>{{ swipeDirection }}</p>
+                    <p>{{ index }}</p>
+                    <p>{{ state.direction }}</p>
+                    <p>{{ state.distance }}</p>
                 </div>
             </swiper-item>
             <swiper-item>
                 <div class="three" @click="c">
-                    <p>{{ swipeDirection }}</p>
+                    <p>{{ index }}</p>
+                    <p>{{ state.direction }}</p>
+                    <p>{{ state.distance }}</p>
                 </div>
             </swiper-item>
             <swiper-item>
                 <div class="four" @click="c">
-                    <p>{{ swipeDirection }}</p>
+                    <p>{{ index }}</p>
+                    <p>{{ state.direction }}</p>
+                    <p>{{ state.distance }}</p>
                 </div>
             </swiper-item>
         </swiper>
-
     </div>
 </template>
 
@@ -36,7 +47,11 @@ export default {
         return {
             swipeDirection: "None",
             show: false,
-            index: 3,
+            index: 1,
+            state: {
+                direction: "",
+                distance: "",
+            },
         };
     },
     computed: {},
@@ -44,7 +59,10 @@ export default {
     methods: {
         c() {},
         change(index) {
-            console.log(index)
+            this.index = index;
+        },
+        horizontal(val) {
+            this.state = val;
         },
     },
 };
@@ -84,5 +102,4 @@ p {
     height: 100%;
     background: violet;
 }
-
 </style>

@@ -49,6 +49,11 @@ export default {
             type: Number,
             default: 1,
         },
+        mask: {
+            //侧边触底显示
+            type: Boolean,
+            default: false,
+        },
     },
     methods: {
         horizontal(val) {
@@ -56,13 +61,13 @@ export default {
             // 滑动中
             if (val.direction == "right") {
                 if (this.degree == 0) {
-                    return this.maskStart(val);
+                    return this.mask ? this.maskStart(val) : 0;
                 }
                 this.degree = this.degree - val.distance;
             } else {
                 if (this.degree >= (this.slot_length - 1) * 100) {
                     this.degree = (this.slot_length - 1) * 100;
-                    this.maskStart(val);
+                    this.mask ? this.maskStart(val) : 0;
                 } else {
                     this.degree = this.degree + val.distance;
                 }
@@ -81,7 +86,7 @@ export default {
             if (this.degree == 0) {
                 // console.log("最左");
                 this.real_index = 1;
-                this.maskEnd();
+                this.mask ? this.maskEnd() : 0;
                 return;
             } else if (this.degree >= 50 && this.real_index == 1) {
                 // console.log("左左右");
@@ -90,7 +95,7 @@ export default {
                         this.degree = 100;
                         this.real_index += 1;
                         mistouch = false;
-                        this.maskEnd();
+                        this.mask ? this.maskEnd() : 0;
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }
@@ -105,7 +110,7 @@ export default {
                     if (this.degree <= 0) {
                         this.degree = 0;
                         mistouch = false;
-                        this.maskEnd();
+                        this.mask ? this.maskEnd() : 0;
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }
@@ -117,7 +122,7 @@ export default {
             } else if (this.degree >= (this.slot_length - 1) * 100) {
                 // console.log("右触底");
                 this.real_index = this.slot_length;
-                this.maskEnd();
+                this.mask ? this.maskEnd() : 0;
                 return;
             } else if (
                 this.degree <= (this.slot_length - 2) * 100 + 50 &&
@@ -129,7 +134,7 @@ export default {
                         this.degree = (this.slot_length - 2) * 100;
                         this.real_index -= 1;
                         mistouch = false;
-                        this.maskEnd();
+                        this.mask ? this.maskEnd() : 0;
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }
@@ -147,7 +152,7 @@ export default {
                     if (this.degree >= (this.slot_length - 1) * 100) {
                         this.degree = (this.slot_length - 1) * 100;
                         mistouch = false;
-                        this.maskEnd();
+                        this.mask ? this.maskEnd() : 0;
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }

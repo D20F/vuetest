@@ -90,6 +90,7 @@ export default {
                         this.degree = 100;
                         this.real_index += 1;
                         mistouch = false;
+                        this.maskEnd();
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }
@@ -104,6 +105,7 @@ export default {
                     if (this.degree <= 0) {
                         this.degree = 0;
                         mistouch = false;
+                        this.maskEnd();
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }
@@ -127,6 +129,7 @@ export default {
                         this.degree = (this.slot_length - 2) * 100;
                         this.real_index -= 1;
                         mistouch = false;
+                        this.maskEnd();
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }
@@ -144,6 +147,7 @@ export default {
                     if (this.degree >= (this.slot_length - 1) * 100) {
                         this.degree = (this.slot_length - 1) * 100;
                         mistouch = false;
+                        this.maskEnd();
                         clearInterval(s);
                         this.$emit("change", this.real_index);
                     }

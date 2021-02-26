@@ -1,6 +1,7 @@
 <template>
     <div class="box">
-        <swiper class="s">
+
+        <swiper class="s" :index="index" @change="change">
             <swiper-item>
                 <div class="one" @click="c">
                     <p>{{ swipeDirection }}</p>
@@ -34,15 +35,16 @@ export default {
     data() {
         return {
             swipeDirection: "None",
-            show:false
+            show: false,
+            index: 3,
         };
     },
     computed: {},
-    created() {
-
-    },
+    created() {},
     methods: {
-        c() {
+        c() {},
+        change(index) {
+            console.log(index)
         },
     },
 };
@@ -52,6 +54,7 @@ export default {
 .box {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 p {
     color: black;
@@ -81,4 +84,5 @@ p {
     height: 100%;
     background: violet;
 }
+
 </style>

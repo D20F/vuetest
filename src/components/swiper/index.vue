@@ -21,6 +21,12 @@
     </div>
 </template>
 <script>
+/**
+ * 索引切换时触发 
+ * change
+ * @param {number} index
+**/
+
 export default {
     name: "drawer",
     data() {
@@ -40,45 +46,186 @@ export default {
     },
     methods: {
         horizontal(val) {
+            // 滑动中
             if (val.direction == "right") {
-                this.degree > (this.real_index - 1) * 100
-                    ? (this.degree = this.degree - val.distance)
-                    : (this.degree = (this.real_index - 1) * 100);
+                if (this.degree == 0) {
+                    return this.maskStart(val);
+                }
+                this.degree = this.degree - val.distance;
             } else {
                 if (this.degree < this.real_index * 100) {
                     if (this.slot_length == this.real_index) {
                         this.degree = (this.slot_length - 1) * 100;
+                        this.maskStart(val);
                     } else {
                         this.degree = this.degree + val.distance;
                     }
                 }
             }
         },
-        start(val) {},
-        end(val) {
-            if (this.degree < (this.real_index - 1) * 100 + 50) {
+        start() {
+            // 滑动开始
+        },
+        end() {
+            // 滑动结束
+
+            // 防止多次添加
+            let mistouch = true;
+
+
+            if (this.degree == 0) {
+                // console.log("最左");
+                this.real_index = 1;
+                this.maskEnd();
+                return;
+            }else if (this.degree >= 50 && this.real_index == 1) {
+                // console.log("左左右");
                 let s = setInterval(() => {
-                    this.degree = this.degree - 1;
+                    if (this.degree >= 100) {
+                        this.degree = 100;
+                        this.real_index += 1;
+                        mistouch = false;
+                        clearInterval(s);
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree + 1;
+                    }
+                }, 2);
+                return;
+            } else if (this.degree <= 50 && this.real_index == 1) {
+                // console.log("左左左");
+                let s = setInterval(() => {
                     if (this.degree <= 0) {
                         this.degree = 0;
-                        this.real_index = 1;
+                        mistouch = false;
                         clearInterval(s);
-                    } else if (this.degree <= (this.real_index - 1) * 100) {
-                        this.degree = (this.real_index - 1) * 100;
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree - 1;
+                    }
+                }, 2);
+                return;
+            }else if (this.degree >= (this.slot_length - 1) * 100) {
+                // console.log("右触底");
+                this.real_index = this.slot_length;
+                this.maskEnd();
+                return;
+            }else if ( this.degree <= (this.slot_length - 2) * 100 + 50 && this.real_index == this.slot_length ) {
+                // console.log("右右左");
+                let s = setInterval(() => {
+                    if (this.degree <= (this.slot_length - 2) * 100) {
+                        this.degree = (this.slot_length - 2) * 100;
                         this.real_index -= 1;
+                        mistouch = false;
+                        clearInterval(s);
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree - 1;
+                    }
+                }, 2);
+                return;
+            } else if ( this.degree >= (this.slot_length - 2) * 100 + 50 && this.real_index == this.slot_length ) {
+                // console.log("右右左");
+                let s = setInterval(() => {
+                    if (this.degree >= (this.slot_length - 1) * 100) {
+                        this.degree = (this.slot_length - 1) * 100;
+                        mistouch = false;
+                        clearInterval(s);
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree + 1;
+                    }
+                }, 2);
+                return;
+            }
+
+            if ( this.degree < (this.real_index - 1) * 100 && this.degree < (this.real_index - 2) * 100 + 50) {
+                let s = setInterval(() => {
+                    if (this.degree <= (this.real_index - 2) * 100) {
+                        this.degree = (this.real_index - 2) * 100;
+                        this.real_index -= 1;
+                        mistouch = false;
+                        clearInterval(s);
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree - 1;
+                    }
+                }, 2);
+            } else if ( this.degree < (this.real_index - 1) * 100 && this.degree >= (this.real_index - 2) * 100 + 50) {
+                let s = setInterval(() => {
+                    if (this.degree >= (this.real_index - 1) * 100) {
+                        this.degree = (this.real_index - 1) * 100;
+                        mistouch = false;
+                        clearInterval(s);
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree + 1;
+                    }
+                }, 2);
+            } else if ( this.degree > (this.real_index - 1) * 100 && this.degree < (this.real_index - 1) * 100 + 50) {
+                let s = setInterval(() => {
+                    if (this.degree <= (this.real_index - 1) * 100) {
+                        this.degree = (this.real_index - 1) * 100;
+                        mistouch = false;
+                        clearInterval(s);
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree - 1;
+                    }
+                }, 2);
+            } else if ( this.degree > (this.real_index - 1) * 100 && this.degree >= (this.real_index - 1) * 100 + 50) {
+                let s = setInterval(() => {
+                    if (this.degree >= this.real_index * 100) {
+                        this.degree = this.real_index * 100;
+                        this.real_index += 1;
+                        mistouch = false;
+                        clearInterval(s);
+                        this.$emit("change", this.real_index);
+                    }
+                    if (mistouch) {
+                        this.degree = this.degree + 1;
+                    }
+                }, 2);
+            }
+        },
+        init() {
+            this.real_index = this.index;
+            this.degree = (this.real_index - 1) * 100;
+        },
+        maskStart(val) {
+            if (val.direction == "right") {
+                this.left_mask_width > 50
+                    ? (this.left_mask_width = 50)
+                    : (this.left_mask_width =
+                          this.left_mask_width + val.distance);
+            } else {
+                this.right_mask_width > 50
+                    ? (this.right_mask_width = 50)
+                    : (this.right_mask_width =
+                          this.right_mask_width + val.distance);
+            }
+        },
+        maskEnd() {
+            if (this.left_mask_width !== 0) {
+                let s = setInterval(() => {
+                    this.left_mask_width -= 0.3;
+                    if (this.left_mask_width <= 0) {
+                        this.left_mask_width = 0;
                         clearInterval(s);
                     }
                 }, 2);
             } else {
                 let s = setInterval(() => {
-                    this.degree = this.degree + 1;
-                    if (this.degree >= (this.slot_length - 1) * 100) {
-                        this.degree = (this.slot_length - 1) * 100;
-                        this.real_index = this.slot_length;
-                        clearInterval(s);
-                    } else if (this.degree >= this.real_index * 100) {
-                        this.degree = this.real_index * 100;
-                        this.real_index += 1;
+                    this.right_mask_width -= 0.3;
+                    if (this.right_mask_width <= 0) {
+                        this.right_mask_width = 0;
                         clearInterval(s);
                     }
                 }, 2);
@@ -87,11 +234,11 @@ export default {
     },
     watch: {
         index: {
-
             //完善索引 完善侧边阴影
             handler(newVal) {
                 if (newVal) {
                     this.real_index = newVal;
+                    this.degree = (this.real_index - 1) * 100;
                 }
             },
         },
@@ -101,7 +248,9 @@ export default {
             return this.$slots.default.length;
         },
     },
-    created() {},
+    created() {
+        this.init();
+    },
 };
 </script>
 
@@ -119,20 +268,22 @@ export default {
     height: 100%;
     border-top-right-radius: 100% 50%;
     border-bottom-right-radius: 100% 50%;
-    z-real_index: 100;
+    z-index: 100;
     background: #eeeeee;
     opacity: 0.3;
-    position: absolute;
+    position: fixed;
     left: 0;
+    top: 0;
 }
 .right_mask {
     height: 100%;
     border-top-left-radius: 100% 50%;
     border-bottom-left-radius: 100% 50%;
-    z-real_index: 100;
+    z-index: 100;
     background: #eeeeee;
     opacity: 0.3;
-    position: absolute;
+    position: fixed;
     right: 0;
+    top: 0;
 }
 </style>

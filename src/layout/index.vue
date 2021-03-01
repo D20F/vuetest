@@ -5,7 +5,7 @@
         </div>
 
         <div class="tabbar">
-            <footers />
+            <!-- <footers /> -->
         </div>
 
 

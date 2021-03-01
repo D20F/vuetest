@@ -21,27 +21,21 @@
     ├─ permission           路由守卫
     └─ settings             网页设置
 
-
-图表
-
-vuetify
+## cordova 注意事项
+1. main.js 注册vue实例时 要使用deviceready回调注册
+``` js
+    document.addEventListener('deviceready', vue, false);
+```
+2. index.html 加入 cordova.js 标签
+``` js
+    <script type="text/javascript" src="cordova.js"></script>
+```
 
 ## 数字滚动库
 vue-countTo
 
 
 
-## 使用 viser-vue 图表库
-npm i @antv/data-set
-npm i viser-vue
-
-两个侧边栏的设置
-看和页面里的要合并吗
-
-.v-application .primary--text
-
-
-名词 复习 完成
 
 this.$store.dispatch("system/add_notify", {
     type: "success",

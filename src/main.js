@@ -20,10 +20,35 @@ Vue.config.productionTip = false
 import '@/directive/index' // 全局指令
 import vuetify from './plugins/vuetify'
 
-new Vue({
-  el: '#app',
-  store,
-  router,
-  vuetify,
-  render: h => h(App)
-})
+function runInCordova() {
+    document.addEventListener('deviceready', OnDeviceready, false);
+    function OnDeviceready() {
+        new Vue({
+            el: '#app',
+            store,
+            router,
+            vuetify,
+            render: h => h(App)
+        })
+
+    }
+}
+function runInBrowser() {
+    new Vue({
+        el: '#app',
+        store,
+        router,
+        vuetify,
+        render: h => h(App)
+    })
+
+
+}
+
+if (process.env.NODE_ENV === 'development') {
+    runInBrowser();
+    Vue.config.devtools = true;
+} else {
+    runInCordova();
+    Vue.config.devtools = false;
+}

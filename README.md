@@ -34,7 +34,8 @@
 ## 数字滚动库
 vue-countTo
 
-
+eosjs/dist/eosjs-numeric.js
+添加 || s.substr(0, 3) === 'BAZ'
 
 
 this.$store.dispatch("system/add_notify", {

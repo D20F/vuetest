@@ -5,12 +5,12 @@
         </div>
 
         <div class="tabbar">
-            <!-- <footers /> -->
+            <footers />
         </div>
 
 
         <!-- 提示 -->
-        <notify />
+        <!-- <notify /> -->
     </v-app>
 </template>
 <script>

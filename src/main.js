@@ -10,7 +10,7 @@ import App from './App'
 import store from './store'
 import router from './router'
 
-import '@/components/index' // 全局注册组件
+import '@/component/index' // 全局注册组件
 
 import '@/utils/rem'
 Vue.use(Viser)

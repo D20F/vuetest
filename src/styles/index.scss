@@ -12,6 +12,14 @@ body {
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
+@font-face {
+    font-family: Alibaba;
+    src: url("../static/Alibaba.ttf") format("truetype");
+}
+p,span {
+    font-family: Alibaba;
+}
+
 label {
   font-weight: 700;
 }
@@ -58,14 +66,26 @@ div:focus {
     height: 0;
   }
 }
-
+input{
+    border: 0px;
+    background-color: none;
+    outline: none;
+ }
+ input:focus{
+    outline: none;
+ }
 p{
     padding: 0;
     margin: 0;
+}
+div{
+    position: relative;
 }
 // main-container global css
 .app-container {
   padding: 20px;
 }
 
-
+.v-application p {
+    margin-bottom: 0px !important;
+}

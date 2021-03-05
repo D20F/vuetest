@@ -1,22 +1,20 @@
 <template>
     <div class="box">
-        <div class="btn">state:{{ state }}</div>
-        <div class="btn">hostname:{{ hostname }}</div>
-        <div class="btn">registerAddressFamily:{{ registerAddressFamily }}</div>
-        <div class="btn">watchAddressFamily:{{ watchAddressFamily }}</div>
-        <div class="btn">zeroconf:{{ zeroconf }}</div>
-        <div class="btn">result:{{ result }}</div>
+        <div class="btn">主机名:{{ hostname }}</div>
+        <div class="btn">发布内容:</div>
         <div v-for="(item, i) in service" :key="i" class="btn">
             {{ i }}:{{ item }}
         </div>
-
+        <div class="btn">响应内容:{{ result }}</div>
+        <div v-for="(item, i) in result" :key="i" class="btn">
+            {{ i }}:{{ item }}
+        </div>
+        <input type="text" v-model="host" placeholder="申请服务">
+        <input type="text" v-model="val" placeholder="寻找服务">
         <div class="btn" @click="start">start</div>
-        <div class="btn" @click="registerregister">registerregister</div>
-        <div class="btn" @click="watch">watch</div>
+        <div class="btn" @click="registerregister">发布服务</div>
+        <div class="btn" @click="watch">监控服务</div>
         <div class="btn" @click="close">close</div>
-        <div class="btn" @click="checkWifiStatus">checkWifiStatus</div>
-        <div class="btn" @click="camera">camera</div>
-        <div class="btn" @click="ToastDemo">ToastDemo</div>
     </div>
 </template>
 
@@ -27,48 +25,26 @@ export default {
     mixins: [],
     data() {
         return {
-            state: "",
+            val: "",
+            host: "",
             zeroconf: "",
-            hostname: "111",
+            hostname: "",
             watchAddressFamily: "",
             registerAddressFamily: "",
-            result: '',
+            result: {},
             service: {},
         };
     },
     computed: {},
     created() {
-        this.state = "start";
         let zeroconf = cordova.plugins.zeroconf;
 
         this.zeroconf = zeroconf;
         this.zeroconf.registerAddressFamily = "ipv4"; // or 'ipv6' ('any' by default)
         this.zeroconf.watchAddressFamily = "ipv4"; // or 'ipv6' ('any' by default)
-
-        this.zeroconf.getHostname(function success(hostname) {
-            this.hostname = hostname;
-        });
     },
     methods: {
-        // 检查是否启动了wifi
-        checkWifiStatus() {
-            cordova.plugins.hotspot.isWifiOn(successCB, errorCB);
-            function successCB(info) {
-                alert("info == true  为打开wifi", info);
-            }
-        },
-        camera() {
-            navigator.camera.getPicture(onSuccess, onFail, {
-                quality: 50,
-                destinationType: Camera.DestinationType.FILE_URI,
-            });
-            function onSuccess(message) {
-                alert(message);
-            }
-            function onFail(message) {
-                alert("Failed because: " + message);
-            }
-        },
+ 
         ToastDemo() {
             ToastDemo.showToast("法克 fuck", onSuccess, onFail);
             function onSuccess(message) {}
@@ -92,9 +68,10 @@ export default {
             this.ToastDemo();
             let that = this;
             that.zeroconf.register(
-                "_http._tcp.",
+                // "_http._tcp.",
+                this.host,
                 "local.",
-                "Becvert",
+                "FB",
                 80,
                 {
                     foo: "bar",
@@ -102,7 +79,7 @@ export default {
                 function success(result) {
                     var action = result.action; // 'registered'
                     that.service = result.service;
-                    alert(that.service);
+                    this.ToastDemo();
                 },
                 function (err) {
                     alert(err);
@@ -116,18 +93,20 @@ export default {
             let that = this;
             this.ToastDemo();
             that.zeroconf.watch(
-                "_http._tcp.",
+                // "_http._tcp.",
+                // "_spore._http._tcp.",
+                this.val,
                 "local.",
                 function success(result) {
-                    that.result = JSON.stringify(result);
-                    alert('result',result);
-                    alert('result',result.action);
+                    that.result = result;
+                    this.ToastDemo();
                 },
                 function (err) {
                     alert(err);
                 }
             );
         },
+
 
     },
 };
@@ -141,7 +120,6 @@ export default {
 }
 .btn {
     margin: 10px 0;
-    background: green;
     width: auto;
 }
 </style>

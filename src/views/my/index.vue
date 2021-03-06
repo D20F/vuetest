@@ -1,10 +1,7 @@
 <template>
     <div class="box_inherit">
         <div class="topbar">
-            <div
-                class="login"
-                @click="jumpRouter('/my/my_information')"
-            >
+            <div class="login" @click="jumpRouter('/my/my_information')">
                 <img src="@/static/img/my/avatar.png" />
                 <div>
                     <p>昵称</p>
@@ -15,8 +12,8 @@
         <div class="card">
             <p>我的收益</p>
             <div>
-                <p>￥ </p>
-                <p> 121,21,21</p>
+                <p>￥</p>
+                <p>121,21,21</p>
                 <div>
                     <img src="@/static/img/my/card_right.png" />
                 </div>
@@ -34,10 +31,7 @@
                     <p>{{ item.title }}</p>
                 </div>
 
-                <img
-                    class="icon"
-                    src="@/static/img/my/icon_next_gray@3x.png"
-                />
+                <img class="icon" src="@/static/img/my/icon_next_gray@3x.png" />
             </div>
         </div>
     </div>
@@ -64,7 +58,7 @@ export default {
                 },
                 {
                     title: "关于我们",
-                    router: "",//暂时无
+                    router: "", //暂时无
                     src: require("@/static/img/my/user.png"),
                     content: "",
                 },
@@ -78,21 +72,18 @@ export default {
         };
     },
     mixins: [public_mixin],
-    components: {
-        
-    },
-    onLoad() {},
+    components: {},
+    created() {
 
-    methods: {
-  
     },
+    methods: {},
 };
 </script>
 
 <style scoped lang="scss">
 .box_inherit {
     width: 100%;
-    height:100%;
+    height: 100%;
 }
 .topbar {
     width: 100%;

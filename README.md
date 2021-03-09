@@ -30,28 +30,19 @@
 ``` js
     <script type="text/javascript" src="cordova.js"></script>
 ```
+## eosjs
+eosjs/dist/eosjs-numeric.js
+添加 || s.substr(0, 3) === 'BAZ'
 
 ## 数字滚动库
 vue-countTo
 
-eosjs/dist/eosjs-numeric.js
-添加 || s.substr(0, 3) === 'BAZ'
 
 
-this.$store.dispatch("system/add_notify", {
-    type: "success",
-    data: "复制成功",
-    time: 2000,
-});
+## 使用loading提示
+this.$loading('content')
 
 
-```js
-import privateKey from "@/component/export-privateKey";
-import Vue from "vue";
-// 注册组件子类
-var Profile = Vue.extend(privateKey);
-// new一下实例  $mount()手动地挂载一个未挂载的实例。                    
-var component = new Profile().$mount()
-// 手动appendchild进去
-document.getElementById('app').appendChild(component.$el)
-```
+
+
+

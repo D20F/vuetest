@@ -7,28 +7,28 @@
                     colorBlack: current_index == 1,
                     gary: current_index !== 1,
                 }"
-                >全部</p
             >
+                全部
+            </p>
             <p
                 @click="select_index(2)"
                 :class="{
                     colorBlack: current_index == 2,
                     gary: current_index !== 2,
                 }"
-                >运行中</p
             >
+                运行中
+            </p>
             <p
                 @click="select_index(3)"
                 :class="{
                     colorBlack: current_index == 3,
                     gary: current_index !== 3,
                 }"
-                >关闭中</p
             >
-            <img
-                @click="bind"
-                src="@/static/img/equipment/add.png"
-            />
+                关闭中
+            </p>
+            <img @click="bind" src="@/static/img/equipment/add.png" />
         </div>
 
         <div v-if="all.length == 0" class="no_bind">
@@ -38,11 +38,7 @@
             </div>
         </div>
 
-        <swiper
-            @change="change"
-            :index="current_index"
-            class="swiper"
-        >
+        <swiper @change="change" :index="current_index" class="swiper">
             <swiper-item class="swiper_item">
                 <card v-for="(item, index) in all" :key="index" :list="item" />
             </swiper-item>
@@ -64,6 +60,7 @@ import card from "./card";
 import public_mixin from "@/mixins/public.js";
 import miner from "@/mixins/miner.js";
 import { getStorage } from "@/utils/storage/storage.js";
+
 
 export default {
     data() {
@@ -88,7 +85,7 @@ export default {
     components: {
         card,
     },
-    mixins: [public_mixin,miner],
+    mixins: [public_mixin, miner],
     created() {
         this.init();
     },
@@ -100,7 +97,7 @@ export default {
             this.current_index = e;
         },
         bind() {
-            this.$router.push({path:'/equipment/bind'})
+            this.$router.push({ path: "/equipment/bind" });
         },
         ssss() {
             let data = {
@@ -123,7 +120,7 @@ export default {
                     this.$store.commit("phoneFun", res);
                 })
                 .catch((err) => {
-                    this.jumpRouters("/pages/login/index");
+                    // this.jumpRouters("/pages/login/index");
                 });
             getStorage("account")
                 .then((res) => {
@@ -148,7 +145,7 @@ export default {
 <style scoped  lang="scss">
 .box_inherit {
     width: 100%;
-    height:100%;
+    height: 100%;
     background: #fafbfc;
 }
 .topbar {
@@ -200,8 +197,4 @@ export default {
         }
     }
 }
-
-
-
-
 </style>

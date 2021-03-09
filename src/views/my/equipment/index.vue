@@ -38,7 +38,9 @@ export default {
     },
     mixins: [public_mixin, miner],
 
-    onLoad() {},
+    created() {
+   
+    },
     methods: {},
 };
 </script>

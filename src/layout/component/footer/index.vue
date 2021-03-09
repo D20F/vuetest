@@ -1,11 +1,6 @@
 <template>
-    <div>
-        <v-bottom-navigation
-            height="50"
-            v-model="value"
-            grow
-            color="primary"
-        >
+    <div class="tabbar">
+        <v-bottom-navigation height="50" v-model="value" grow color="primary">
             <v-btn to="/" color="rgba(0, 0, 0, 0);" text height="100%">
                 <span>设备</span>
 
@@ -23,7 +18,6 @@
 
                 <v-icon>mdi-account</v-icon>
             </v-btn>
-
         </v-bottom-navigation>
     </div>
 </template>
@@ -33,12 +27,15 @@ export default {
     components: {},
     mixins: [],
     data: () => ({ value: 1 }),
-    computed: {
-
-    },
+    computed: {},
     methods: {},
 };
 </script>
 
 <style lang="scss" scoped>
+.tabbar {
+    width: 100%;
+    height: 50px;
+    position: relative;
+}
 </style>

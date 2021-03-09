@@ -126,18 +126,18 @@ export default {
     justify-content: space-around;
     align-items: center;
     width: 90%;
-    height: 150px;
+    height: 75px;
     margin: 0 auto;
     p:nth-child(1) {
-        width: 620px;
+        width: 310px;
         text-align: left;
-        font-size: 32px;
+        font-size: 16px;
         font-weight: 600;
         color: #242424;
     }
     div {
-        width: 90px;
-        height: 80px;
+        width: 45px;
+        height: 40px;
         border-radius: 50%;
         overflow: hidden;
         img {
@@ -146,8 +146,8 @@ export default {
         }
     }
     img:nth-child(3) {
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
     }
 }
 .row {
@@ -155,23 +155,23 @@ export default {
     justify-content: space-around;
     align-items: center;
     width: 90%;
-    height: 100px;
+    height: 50px;
     margin: 0 auto;
     p:nth-child(1) {
-        width: 300px;
+        width: 150px;
         text-align: left;
-        font-size: 32px;
+        font-size: 16px;
         font-weight: 600;
         color: #242424;
     }
     p:nth-child(2) {
-        font-size: 28px;
+        font-size: 14px;
         text-align: right;
-        width: 310px;
+        width: 155px;
     }
     img:nth-child(3) {
-        width: 40px;
-        height: 40px;
+        width: 20px;
+        height: 20px;
     }
 }
 </style>

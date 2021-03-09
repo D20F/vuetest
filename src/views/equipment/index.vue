@@ -181,7 +181,6 @@ export default {
     width: 100%;
     height: 95%;
     .swiper_item {
-        padding-top: 13px;
         overflow-y: auto;
     }
 }

@@ -39,23 +39,28 @@ const routes = [
     },
     {
         path: "/my/my_setting",
-        component: () => import("@/views/my/my_setting/index")
+        component: () => import("@/views/my/my_setting/index"),
+        meta: { title: '设置' }
     },
     {
         path: "/my/my_setting/protocol",
-        component: () => import("@/views/my/my_setting/protocol/index")
+        component: () => import("@/views/my/my_setting/protocol/index"),
+        meta: { title: '用户协议' }
     },
     {
         path: "/my/my_information",
-        component: () => import("@/views/my/my_information/index")
+        component: () => import("@/views/my/my_information/index"),
+        meta: { title: '个人信息' }
     },
     {
         path: "/my/export_privateKey",
-        component: () => import("@/views/my/export_privateKey/index")
+        component: () => import("@/views/my/export_privateKey/index"),
+        meta: { title: '导出私钥' }
     },
     {
         path: "/my/equipment",
-        component: () => import("@/views/my/equipment/index")
+        component: () => import("@/views/my/equipment/index"),
+        meta: { title: '设备管理' }
     },
     {
         path: "/my/my_setting/modify_password",

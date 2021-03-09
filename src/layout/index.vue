@@ -1,31 +1,38 @@
 <template>
     <v-app>
-        <div class="main">
+        <bar />
+
+        <div class="main" :style="{height:`calc(100% - ${main_padding}px)`}">
             <router-view></router-view>
         </div>
 
-        <div class="tabbar">
-            <footers />
-        </div>
-
+        <footers />
 
         <!-- 提示 -->
         <!-- <notify /> -->
     </v-app>
 </template>
 <script>
-import footers from "./component/footer";
+import footers from "./component/footer/index";
+import bar from "./component/bar/index";
 export default {
     components: {
         footers,
-        
+        bar,
     },
     data() {
-        return {
-        };
+        return {};
     },
     mixins: [],
-    computed: {},
+    computed: {
+        main_padding() {
+            if (this.$route.meta.title) {
+                return 100;
+            } else {
+                return 50;
+            }
+        },
+    },
     methods: {},
 };
 </script>
@@ -33,11 +40,5 @@ export default {
 <style lang="scss" scoped>
 .main {
     width: 100%;
-    height: calc(100% - 50px);
-}
-.tabbar {
-    width: 100%;
-    height: 50px;
-    position: relative;
 }
 </style>

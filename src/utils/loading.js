@@ -42,16 +42,9 @@ export default {
             var component = new Profile().$mount();
             let dom = component.$el;
             document.getElementById('app').appendChild(dom)
-            console.log(dom.style.opacity)
-            setTimeout(() => {
-                dom.style.opacity = 1
-            }, 0)
-            setTimeout(() => {
-                dom.style.opacity = 0
-            }, 2000)
-            setTimeout(() => {
-                dom.remove()
-            }, 4000)
+            setTimeout(() => { dom.style.opacity = 1; }, 0)
+            setTimeout(() => { dom.style.opacity = 0; }, 2000)
+            setTimeout(() => { dom.remove(); }, 4000)
         }
     }
 }

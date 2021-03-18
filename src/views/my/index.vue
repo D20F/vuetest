@@ -2,10 +2,11 @@
     <div class="box_inherit">
         <div class="topbar">
             <div class="login" @click="jumpRouter('/my/my_information')">
-                <img src="@/static/img/my/avatar.png" />
+                <img v-if="account.avatar" :src="account.avatar" />
+                <img v-else src="@/static/img/my/avatar.png" />
                 <div>
-                    <p>昵称</p>
-                    <p>{{ 213131 }}</p>
+                    <p>{{ account.name ? account.name: '请命名昵称' }}</p>
+                    <p>{{ account.phone }}</p>
                 </div>
             </div>
         </div>
@@ -73,10 +74,13 @@ export default {
     },
     mixins: [public_mixin],
     components: {},
-    created() {
-
-    },
+    created() {},
     methods: {},
+    computed: {
+        account() {
+            return this.$store.state.account;
+        },
+    },
 };
 </script>
 

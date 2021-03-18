@@ -1,59 +1,73 @@
 <template>
-    <div v-show="title" class="title-column">
-        <v-icon @click="back">mdi-arrow-left</v-icon>
-        <p>{{ title }}</p>
+    <div v-show="bar" class="tabbar">
+        <v-bottom-navigation height="50" v-model="value" grow color="primary">
+            <v-btn
+                @click="jump('/')"
+                color="rgba(0, 0, 0, 0);"
+                text
+                height="100%"
+            >
+                <span>设备</span>
 
-        <div class="space"></div>
-        <!-- <v-btn depressed disabled outlined>
-            <v-icon>mdi-format-list-bulleted-type</v-icon>
-        </v-btn> -->
+                <v-icon>mdi-dns</v-icon>
+                <!-- <img src="@/static/img/tabbar/equipment.png" alt=""> -->
+            </v-btn>
+            <v-btn
+                @click="jump('/income')"
+                text
+                color="rgba(0, 0, 0, 0);"
+                height="100%"
+            >
+                <span>收益</span>
+
+                <v-icon>mdi-wallet-outline</v-icon>
+            </v-btn>
+
+            <v-btn
+                @click="jump('/my')"
+                color="rgba(0, 0, 0, 0);"
+                text
+                height="100%"
+            >
+                <span>我的</span>
+
+                <v-icon>mdi-account</v-icon>
+            </v-btn>
+        </v-bottom-navigation>
     </div>
 </template>
 
-
-
-
 <script>
 export default {
-    name: "notify",
-    props: {},
-    data() {
-        return {};
-    },
-    computed: {
-        title() {
-            // 写完标题栏
-            // console.log(this.$route);
-            // console.log(this.$route.meta.title);
-            if (this.$route.meta.title) {
-                return this.$route.meta.title;
-            } else {
-                return false;
-            }
+    components: {},
+    mixins: [],
+    data: () => ({ value: 1 }),
+    computed: {},
+    methods: {
+        jump(path) {
+            this.$router.replace({
+                path: path,
+            });
         },
     },
-    created() {},
-    methods: {
-        back(){
-            this.$router.go(-1);
-        }
+    computed: {
+        bar() {
+            if (this.$route.meta.bar == false) {
+                return this.$route.meta.bar;
+            }else if (this.$route.meta.bar == true) {
+                return this.$route.meta.bar;
+            } else {
+                return true;
+            }
+        },
     },
 };
 </script>
 
 <style lang="scss" scoped>
-.title-column {
-    width: 90%;
+.tabbar {
+    width: 100%;
     height: 50px;
-    margin: 0 auto;
     position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .space{
-        width: 24px;
-        height: 24px;
-    }
 }
-
 </style>

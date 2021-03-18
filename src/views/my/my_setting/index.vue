@@ -2,7 +2,7 @@
     <div class="box">
         <div
             class="row"
-            @click="jumpRouter('/my/my_setting/modify_password')"
+            @click="jumpRouter('/login/rest')"
         >
             <p>修改密码</p>
             <img

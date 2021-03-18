@@ -61,7 +61,6 @@ import public_mixin from "@/mixins/public.js";
 import miner from "@/mixins/miner.js";
 import { getStorage } from "@/utils/storage/storage.js";
 
-
 export default {
     data() {
         return {
@@ -99,28 +98,14 @@ export default {
         bind() {
             this.$router.push({ path: "/equipment/bind" });
         },
-        ssss() {
-            let data = {
-                phone: this.phone_number,
-                code: this.Verification_code,
-            };
-            createAccount(data)
-                .then((res) => {
-                    if (res.status == 200) {
-                    } else if (1) {
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
+   
         init() {
             getStorage("phone")
                 .then((res) => {
                     this.$store.commit("phoneFun", res);
                 })
                 .catch((err) => {
-                    // this.jumpRouters("/pages/login/index");
+                    this.replaceRouter("/login")
                 });
             getStorage("account")
                 .then((res) => {

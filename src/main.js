@@ -16,13 +16,13 @@ import '@/component/index' // 全局注册组件
 import '@/utils/rem'
 
 
-import loading from '@/utils/loading'
+import loading from '@/utils/loading/index'
 Vue.use(loading)
 
 import '@/directive/index' // 全局指令
 import vuetify from './plugins/vuetify'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 function runInCordova() {
     document.addEventListener('deviceready', OnDeviceready, false);
     function OnDeviceready() {

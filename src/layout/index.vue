@@ -1,23 +1,22 @@
 <template>
     <v-app>
-        <bar />
+        <top-bar />
 
-        <div class="main" :style="{height:`calc(100% - ${main_padding}px)`}">
+        <div class="main" id="main" :style="{ height: `calc(100% - ${main_padding}px)` }">
             <router-view></router-view>
         </div>
 
-        <footers />
-
+        <bar />
         <!-- 提示 -->
         <!-- <notify /> -->
     </v-app>
 </template>
 <script>
-import footers from "./component/footer/index";
 import bar from "./component/bar/index";
+import topBar from "./component/top-bar/index";
 export default {
     components: {
-        footers,
+        topBar,
         bar,
     },
     data() {

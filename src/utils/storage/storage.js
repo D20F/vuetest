@@ -1,35 +1,22 @@
 
 export const setStorage = (key, data) => {
-    return new Promise((resolve, reject) => {
-        uni.setStorage({
-            key: key,
-            data: data,
-            success: (res) => { resolve('success') },
-            fail: (err) => { reject(err) }
-        });
-    })
+    return localStorage.setItem(key, JSON.stringify(data))
 }
 
 export const getStorage = (key) => {
     return new Promise((resolve, reject) => {
-        uni.getStorage({
-            key: key,
-            success: (res) => { resolve(res.data) },
-            fail: (err) => { reject(err) }
-        });
+        let val = localStorage.getItem(key);
+        if (val == null) {
+            reject('err')
+        } else {
+            resolve(JSON.parse(val))
+        }
     })
 }
 
 export const removeStorage = (key) => {
-    return new Promise((resolve, reject) => {
-        uni.removeStorage({
-            key: key,
-            success: (res) => { resolve('success') },
-            fail: (err) => { reject(err) }
-        });
-    })
+    return localStorage.removeItem(key);
 }
-export const clearStorage = (key) => {
-    return uni.clearStorage();
+export const clearStorage = () => {
+    return localStorage.clear();
 }
-

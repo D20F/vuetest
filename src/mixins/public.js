@@ -15,6 +15,12 @@ var public_component = {
                 query: data
             })
         },
+        replaceRouter(path, data) {
+            this.$router.replace({
+                path: path,
+                query: data
+            });
+        },
 
     },
 

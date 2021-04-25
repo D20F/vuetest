@@ -1,234 +1,204 @@
 <template>
     <div class="login">
         <div class="login_tab">
-            <p>欢迎登录</p>
+            <p>登录</p>
         </div>
+
+
+        <!-- fouse -->
+        <!-- blur -->
+
+
 
         <div class="public_box">
             <div class="input_box">
+                <p class="unip_left">手机号</p>
                 <input
-                    v-model="phone_number"
-                    class="input"
-                    type="number"
-                    placeholder="请输入手机号"
+                    v-model="number"
+                    type="text"
+                    maxlength="11"
+                    placeholder="请输入您的手机号"
+                    @focus=" tip = false"
+                    @blur=" tip = true"
                 />
             </div>
-            <div class="password_box">
+            <div class="input_box">
+                <p class="unip_left">密码</p>
                 <input
                     v-model="password"
-                    :type="input_password"
-                    maxlength="16"
-                    placeholder="请输入密码"
-                />
-                <img
-                    v-if="input_password == 'text'"
-                    @click="input_passwordFun('password')"
-                    src="@/static/img/login/eyes.png"
-                />
-                <img
-                    v-else
-                    @click="input_passwordFun('text')"
-                    src="@/static/img/login/eye.png"
+                    type="password"
+                    maxlength="15"
+                    placeholder="请输入您登录密码"
+                    @focus=" tip = false"
+                    @blur=" tip = true"
                 />
             </div>
-            <div @click="jumpRouter('/login/rest')" class="blank">
-                <p>忘记密码</p>
-            </div>
-            <div
-                @click="confirm"
-                class="btn"
-                :class="{
-                    background_color_bule_2: password.length > 0,
-                    background_color_gray_1: password.length == 0,
-                }"
-            >
+            <div class="blank"></div>
+            <div @click="confirm" class="btn">
                 <p>登录</p>
             </div>
             <div class="blank_2"></div>
         </div>
-        <p class="protocol" @click="jumpRouter('/login/registered')">
-            <span>还没有账号？</span>
-            <span>立即注册</span>
-        </p>
+
+        <div v-show="tip" class="protocol">
+            登录代表您已同意
+            <p>用户协议</p>
+            <p>和</p>
+            <p>隐私协议</p>
+        </div>
     </div>
 </template>
 
 <script>
-import public_mixin from "@/mixins/public.js";
-import { setStorage } from "@/utils/storage/storage.js";
-import { setToken } from "@/utils/cookie";
+import publics from "@/mixins/public.js";
 import { login } from "@/api/mapi";
+import { setStorage } from "@/utils/storage/storage.js";
 
 export default {
     data() {
         return {
-            input_password: "password", //input type 密码属性
-            phone_number: "", //手机号
-            password: "", //密码
+            tip: true, 
+            number: "", //手机号    fangbo
+            password: "", //密码    xiaoqu123456
         };
     },
-    mixins: [public_mixin],
+    mixins: [publics],
     methods: {
-        input_passwordFun(val) {
-            this.input_password = val;
-        },
-        regular_phone(val) {
-            const regex = /^1([3|4|5|7|8|])\d{9}$/;
-            return regex.test(val);
-        },
-        async confirm() {
-            if (!this.regular_phone(this.phone_number)) {
-                return this.$toast({ content: "手机号格式错误" });
-            }
-            if (this.password.length < 7) {
-                return this.$toast({ content: "密码小于8位" });
-            }
-            let that = this;
-
+        confirm() {
+            let data = {
+                account: this.number,
+                password: this.password,
+            };
             this.$loading({
                 content: "登录中",
                 mask: true,
+                icon: true,
             });
-
-            // 待修改
-            let data = {
-                phone: this.phone_number,
-                password: this.password,
-            };
             login(data)
                 .then((res) => {
-                    this.$loadingHide();
+                    console.log(res);
                     if (res.status == 200) {
-                        // console.log(res);
+                        setStorage("account", res.data.applets);
+                        setStorage("name", res.data.nickname);
+                        setStorage(
+                            "avatar",
+                            require("@/static/img/my/avatar.png")
+                        );
+                        setStorage("status", res.data.status);
 
-                        setStorage("account", res.data.account);
-                        setStorage("phone", that.phone_number);
-                        setStorage("avatar", res.data.headUrl);
-                        setStorage("name", res.data.nickName);
-                        setToken(res.data.token);
+                        this.$store.commit("accountFun", res.data.applets);
+                        this.$store.commit("nameFun", res.data.nickname);
+                        this.$store.commit(
+                            "avatarFun",
+                            require("@/static/img/my/avatar.png")
+                        );
+                        this.$store.commit("statusFun", res.data.status);
 
-                        that.jumpRouter("/");
+                        this.replaceRouter("/");
                     } else {
-                        this.$toast({ content: "密码错误" });
+                        this.$toast({
+                            content: "登录失败",
+                        });
                     }
+                    this.$loadingHide();
                 })
                 .catch((err) => {
-                    console.log(err);
                     this.$loadingHide();
-                    this.$toast({ content: "登陆失败，请重新登录" });
+
+                    this.$toast({
+                        content: "登录失败",
+                    });
+                    console.log(err);
                 });
         },
     },
-    created() {
-
-    },
+    created() {},
 };
 </script>
 
-<style scoped  lang="scss">
+<style scoped lang="scss">
 .login {
     width: 100%;
-    height: 100%;
+    height: inherit;
+    overflow-y: auto;
     position: relative;
-}
-.login_tab {
-    width: 80%;
-    padding-top: 90px;
-    margin: 0 auto;
-    p {
-        font-size: 24px;
-        text-align: left;
-        display: inline-block;
-        font-weight: 600;
-    }
-}
-.protocol {
-    width: 100%;
-    text-align: center;
-    font-size: 10px;
-    margin-top: 25px;
-    p {
-        font-size: 10px;
-        display: inline;
-    }
-    span:nth-child(1) {
-        color: #c6c7ce;
-    }
-    span:nth-child(2) {
-        color: #3d7eff;
-    }
 }
 .public_box {
     width: 80%;
     margin: 0 auto;
 }
+.login_tab {
+    width: 80%;
+    margin: 60px auto 0 auto;
+    p {
+        font-size: 25px;
+        text-align: left;
+        display: inline-block;
+        font-weight: 600;
+    }
+    p:nth-child(2) {
+        margin: 0 15px;
+    }
+}
 .blank {
     width: 100%;
-    height: 75px;
-    margin: 0 auto;
-    p {
-        color: #c6c7ce;
-        line-height: 50px;
-        text-align: right;
-        font-size: 15px;
-    }
+    height: 100px;
+}
+.blank_2 {
+    width: 100%;
+    height: 35px;
 }
 
 .input_box {
-    margin-top: 50px;
-    width: 100%;
-    height: 51px;
-    background: #f5f6fb;
-    border-radius: 12px;
-    input {
-        width: 80%;
-        height: 51px;
-        margin: 0 auto;
-        vertical-align: middle;
-        color: #1f2124;
-        font-size: 15px;
+    margin-top: 10px;
+    p:nth-child(1) {
+        margin: 25px 0;
     }
-}
-.password_box {
-    margin-top: 25px;
-    width: 100%;
-    height: 51px;
-    background: #f5f6fb;
-    border-radius: 12px;
     input {
-        width: 80%;
-        height: 51px;
-        margin: 0 auto;
+        display: inline-block;
         vertical-align: middle;
-        color: #1f2124;
-        font-size: 15px;
-    }
-    img {
-        position: absolute;
-        width: 45px;
-        height: 45px;
-        top: 4%;
-        right: 8%;
+        font-size: 16px;
+        // background: #eeeeee;
+        width: 100%;
+        border-radius: 8px;
+        height: 50px;
     }
 }
 
+.protocol {
+    width: 75%;
+    position: fixed;
+    bottom: 20px;
+    left: 12.5%;
+    text-align: center;
+    font-size: 12px;
+    p {
+        font-size: 12px;
+        display: inline;
+    }
+    p:nth-child(1) {
+        color: #00b075;
+    }
+    p:nth-child(3) {
+        color: #00b075;
+    }
+}
 .btn {
     width: 100%;
     height: 45px;
-    border-radius: 7px;
+    border-radius: 8px;
     margin: 0 auto;
+    box-shadow: 0px 2px 20px -5px #00b075;
     text-align: center;
+    background: #00b075;
     p {
         color: #ffffff;
         line-height: 45px;
         letter-spacing: 10px;
-        font-size: 16px;
+        font-size: 18px;
     }
 }
-.background_color_bule_2 {
-    background: #3d7eff;
-}
-.background_color_gray_1 {
-    background: #ebecef;
+.unip_left {
+    text-align: left;
 }
 </style>

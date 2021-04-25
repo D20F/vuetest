@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-var baseURL = 'https://miner-api.sporeblockchain.cn/v1';
+var baseURL = 'https://mapi.sporeblockchain.cn';
 import { getToken } from '../cookie'
 let token = getToken();
 
@@ -37,7 +37,6 @@ export const getData = (url, params, needHeader) => {
             .catch(err => reject(err))
     })
 }
-
 
 
 

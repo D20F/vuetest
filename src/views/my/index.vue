@@ -1,22 +1,44 @@
 <template>
     <div class="box_inherit">
         <div class="topbar">
-            <div class="login" @click="jumpRouter('/my/my_information')">
-                <img v-if="account.avatar" :src="account.avatar" />
-                <img v-else src="@/static/img/my/avatar.png" />
+            <div class="login">
+                <img
+                    @click="upload"
+                    v-if="account.avatar"
+                    :src="account.avatar"
+                />
+                <img @click="upload" v-else src="@/static/img/my/avatar.png" />
                 <div>
-                    <p>{{ account.name ? account.name: '请命名昵称' }}</p>
+                    <p>{{ account.name ? account.name : "请命名昵称" }}</p>
                     <p>{{ account.phone }}</p>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <p>我的收益</p>
-            <div>
-                <p>￥</p>
-                <p>121,21,21</p>
+        <div class="state">
+            <div
+                @click="select_state('online')"
+                class="rows"
+                :class="{
+                    gary: status != 'online',
+                    greens: status == 'online',
+                }"
+            >
+                <div class="onLine"></div>
                 <div>
-                    <img src="@/static/img/my/card_right.png" />
+                    <p>在线</p>
+                </div>
+            </div>
+            <div
+                @click="select_state('offline')"
+                class="rows"
+                :class="{
+                    gary: status != 'offline',
+                    greens: status == 'offline',
+                }"
+            >
+                <div class="offLine"></div>
+                <div>
+                    <p>离线</p>
                 </div>
             </div>
         </div>
@@ -35,38 +57,31 @@
                 <img class="icon" src="@/static/img/my/icon_next_gray@3x.png" />
             </div>
         </div>
+
+        <div @click="quit" class="btn">
+            <p>退出登录</p>
+        </div>
     </div>
 </template>
 
 <script>
 import public_mixin from "@/mixins/public.js";
+import {
+    setStorage,
+    clearStorage,
+    getStorage,
+} from "@/utils/storage/storage.js";
+import { switchStatus, getTotalNum } from "@/api/mapi";
+import axios from "axios";
 
 export default {
     data() {
         return {
             list: [
                 {
-                    title: "设备管理",
-                    router: "/my/equipment",
+                    title: "历史记录",
+                    router: "/my/history",
                     src: require("@/static/img/my/equipment.png"),
-                    content: "",
-                },
-                {
-                    title: "导出私钥",
-                    router: "/my/export_privateKey",
-                    src: require("@/static/img/my/export.png"),
-                    content: "",
-                },
-                {
-                    title: "关于我们",
-                    router: "", //暂时无
-                    src: require("@/static/img/my/user.png"),
-                    content: "",
-                },
-                {
-                    title: "设置",
-                    router: "/my/my_setting",
-                    src: require("@/static/img/my/setting.png"),
                     content: "",
                 },
             ],
@@ -74,12 +89,89 @@ export default {
     },
     mixins: [public_mixin],
     components: {},
+
+    methods: {
+        quit() {
+            // 退出登录
+            clearStorage();
+            this.replaceRouter("/login");
+        },
+
+        select_state(index) {
+            let data = {
+                account: this.$store.state.account.account,
+                status: index,
+            };
+            switchStatus(data)
+                .then((res) => {
+                    console.log(res);
+                    if (res.status == 200) {
+                        setStorage("status", index);
+                        this.$store.commit("statusFun", index);
+                        this.$toast({
+                            content: "修改成功",
+                        });
+                    } else {
+                        this.$toast({
+                            content: "修改失败",
+                        });
+                    }
+                })
+                .catch((err) => {
+                    this.$toast({
+                        content: "修改失败",
+                    });
+
+                    console.log(err);
+                });
+        },
+
+        upload() {
+            if (document.querySelector("#avatar")) {
+                document.querySelector("#avatar").remove();
+            }
+            let input = document.createElement("input");
+            input.type = "file";
+            input.id = "avatar";
+            input.multiple = "multiple";
+            input.style.display = "none";
+            input.accept = "image/*";
+            document.body.appendChild(input);
+            input.click();
+            input.onchange = () => {
+                let data = new FormData();
+                data.append("file", input.files[0]);
+                axios
+                    .post("http://106.55.6.193:3000/upload", data)
+                    .then((res) => {
+                        console.log(res);
+                        this.$toast({
+                            content: "头像更改成功",
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        this.$toast({
+                            content: "头像更改失败",
+                        });
+                    });
+
+            };
+        },
+    },
     created() {},
-    methods: {},
     computed: {
         account() {
             return this.$store.state.account;
         },
+        status() {
+            return this.$store.state.account.status;
+        },
+    },
+    beforeDestroy() {
+        if (document.querySelector("#avatar")) {
+            document.querySelector("#avatar").remove();
+        }
     },
 };
 </script>
@@ -87,7 +179,7 @@ export default {
 <style scoped lang="scss">
 .box_inherit {
     width: 100%;
-    height: 100%;
+    height: inherit;
 }
 .topbar {
     width: 100%;
@@ -213,5 +305,60 @@ export default {
             height: 20px;
         }
     }
+}
+.state {
+    margin: 50px auto;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 90%;
+    .rows {
+        width: 100px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-right: 10%;
+        p {
+            line-height: 48px;
+            font-size: 14px;
+        }
+    }
+    .onLine {
+        width: 12px;
+        height: 12px;
+        background: #00b075;
+        border-radius: 50%;
+    }
+    .offLine {
+        width: 12px;
+        height: 12px;
+        background: #b3b3b3;
+        border-radius: 50%;
+    }
+}
+
+.btn {
+    width: 80%;
+    height: 45px;
+    border-radius: 7px;
+    left: 10%;
+    background: #00b075;
+    text-align: center;
+    position: absolute;
+    bottom: 10%;
+    p {
+        color: #ffffff;
+        line-height: 45px;
+        font-size: 16px;
+    }
+}
+
+.gary {
+    background: #f7f8f9;
+}
+.greens {
+    background: RGB(176, 218, 197);
 }
 </style>

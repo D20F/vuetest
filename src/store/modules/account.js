@@ -14,9 +14,10 @@ const ACCOUNT = {
         account: '',
         avatar: '',
         name: '',
-        role: '', 
-        privateKey: '', 
-        phone: '', 
+        role: '',
+        privateKey: '',
+        status: '',
+        phone: '',
     }),
     mutations: {
         accountFun(state, data) {
@@ -36,6 +37,8 @@ const ACCOUNT = {
         },
         phoneFun(state, data) {
             state.phone = data;
+        }, statusFun(state, data) {
+            state.status = data;
         },
     },
     actions: {

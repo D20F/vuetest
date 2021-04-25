@@ -8,17 +8,16 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: "/",
-        component: () => import("@/views/equipment/index")
+        component: () => import("@/views/home/index"),
+        meta: { bar: true }
     },
     {
-        path: "/equipment/bind",
-        component: () => import("@/views/equipment/bind/index")
+        path: "/home/map",
+        component: () => import("@/views/home/map/index"),
+        meta: { title: '附近回收机', bar: false }
     },
 
-    {
-        path: "/income",
-        component: () => import("@/views/income/index")
-    },
+
 
     {
         path: "/login",
@@ -26,45 +25,39 @@ const routes = [
         meta: { bar: false }
     },
 
-    {
-        path: "/login/registered",
-        component: () => import("@/views/login/registered/index"),
-        meta: { bar: false }
-    },
-    {
-        path: "/login/rest",
-        component: () => import("@/views/login/rest/index"),
-        meta: { bar: false }
-    },
+
     {
         path: "/my",
-        component: () => import("@/views/my/index")
+        component: () => import("@/views/my/index"),
+        meta: { bar: true }
     },
     {
-        path: "/my/my_setting",
-        component: () => import("@/views/my/my_setting/index"),
-        meta: { title: '设置', bar: false }
+        path: "/my/history",
+        component: () => import("@/views/my/history/index"),
+        meta: { title: '回收历史', bar: false }
     },
     {
-        path: "/my/my_setting/protocol",
-        component: () => import("@/views/my/my_setting/protocol/index"),
-        meta: { title: '用户协议', bar: false }
+        path: "/my/history/details",
+        component: () => import("@/views/my/history/details"),
+        meta: { title: '回收详情', bar: false }
+    },
+
+    {
+        path: "/recycle/recyclingDetails",
+        component: () => import("@/views/recycle/recyclingDetails/index"),
+        meta: { title: '回收详情', bar: false }
     },
     {
-        path: "/my/my_information",
-        component: () => import("@/views/my/my_information/index"),
-        meta: { title: '个人信息', bar: false }
+        path: "/recycle/recyclingSite",
+        component: () => import("@/views/recycle/recyclingSite/index"),
+        meta: { title: '回收点详情', bar: false }
     },
     {
-        path: "/my/export_privateKey",
-        component: () => import("@/views/my/export_privateKey/index"),
-        meta: { title: '导出私钥', bar: false }
+        path: "/recycle/uploadViolation",
+        component: () => import("@/views/recycle/uploadViolation/index"),
+        meta: { title: '无可回收垃圾桶', bar: false }
     },
-    {
-        path: "/my/equipment",
-        component: () => import("@/views/my/equipment/index"),
-        meta: { title: '设备管理', bar: false }
-    },
+
 ]
 
 

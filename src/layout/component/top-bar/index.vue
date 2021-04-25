@@ -1,8 +1,7 @@
 <template>
-    <div v-show="title" class="title-column">
+    <div  class="title-column">
         <v-icon @click="back">mdi-arrow-left</v-icon>
-        <p>{{ title }}</p>
-
+        <p>{{ $route.meta.title }}</p>
         <div class="space"></div>
         <!-- <v-btn depressed disabled outlined>
             <v-icon>mdi-format-list-bulleted-type</v-icon>
@@ -21,16 +20,7 @@ export default {
         return {};
     },
     computed: {
-        title() {
-            // 写完标题栏
-            // console.log(this.$route);
-            // console.log(this.$route.meta.title);
-            if (this.$route.meta.title) {
-                return this.$route.meta.title;
-            } else {
-                return false;
-            }
-        },
+
     },
     created() {},
     methods: {
@@ -46,8 +36,10 @@ export default {
     width: 90%;
     height: 50px;
     margin: 0 auto;
-    position: relative;
+    left: 5%;
+    position: fixed;
     display: flex;
+    z-index: 9999;
     justify-content: space-between;
     align-items: center;
     .space{

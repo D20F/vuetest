@@ -37,12 +37,39 @@ eosjs/dist/eosjs-numeric.js
 ## 数字滚动库
 vue-countTo
 
-
+## 代替 window.open 用来打开手机其他app
+cordova-plugin-inappbrowser
+## 文件
+cordova plugin add cordova-plugin-file
+## 文件传输
+cordova plugin add cordova-plugin-file-transfer
+## 相机
+cordova plugin add cordova-plugin-camera
+## 蓝牙
+cordova plugin add cordova-plugin-ble-central
 
 ## 使用loading提示
-this.$loading('content')
+this.$loading({
+    content:'',
+    mask:true,
+    icon:true,
+})
+this.$toast({
+    content:'',
+})
+this.$loadingHide()
+## 路由参数
+this.$route.query
+
+## cordova 默认https 想用http需要配置
+
+test 组件 蓝牙实验 可以删除
+还有冗余没有删除掉
+
+蓝牙  --- 未实验
+rfid  --- 未完成
 
 
-
-
+小程序增加提现
+检查一遍测试
 

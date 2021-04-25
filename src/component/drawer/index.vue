@@ -38,6 +38,27 @@ export default {
             degree: 100,
         };
     },
+
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 使用 requestAnimationFrame 来优化动画效果
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+    // 
+
+
+
+
     methods: {
         horizontal(val) {
             if (val.direction == "right") {

@@ -2,22 +2,22 @@
     <div v-show="bar" class="tabbar">
         <v-bottom-navigation height="50" v-model="value" grow color="primary">
             <v-btn
-                style="max-width: none;"
+                style="max-width: none"
                 color="rgba(0, 0, 0, 0);"
                 text
                 exact
-                to="/"
                 height="100%"
+                @click="jump('/')"
             >
                 <span>日常</span>
                 <v-icon>mdi-dns</v-icon>
             </v-btn>
             <v-btn
-                style="max-width: none;"
+                style="max-width: none"
                 color="rgba(0, 0, 0, 0);"
                 text
-                to="/my"
                 height="100%"
+                @click="jump('/my')"
             >
                 <span>我的</span>
                 <v-icon>mdi-account</v-icon>
@@ -30,7 +30,9 @@
 export default {
     components: {},
     mixins: [],
-    data: () => ({ value: 1 }),
+    data: () => ({
+        value: 0,
+    }),
     computed: {},
     methods: {
         jump(path) {

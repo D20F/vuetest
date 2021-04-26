@@ -41,6 +41,7 @@ export default {
     display: flex;
     z-index: 9999;
     justify-content: space-between;
+    background: #ffffff;
     align-items: center;
     .space{
         width: 24px;

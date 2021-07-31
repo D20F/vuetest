@@ -7,13 +7,19 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
-  },
+},
   "dependencies": {
     "axios": "0.18.1",
     "core-js": "3.6.5",
+    "decimal.js": "^10.2.0",
+    "eosjs": "^20.0.3",
+    "eosjs-ecc": "^4.0.7",
     "file-saver": "^2.0.5",
     "js-cookie": "2.2.0",
+    "js-md5": "^0.7.3",
     "jszip": "^3.5.0",
+    "less": "^3.12.2",
+    "less-loader": "^6.2.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
@@ -22,12 +28,7 @@
     "vue-router": "3.0.6",
     "vuetify": "^2.2.11",
     "vuex": "3.1.0",
-    "decimal.js": "^10.2.0",
-    "eosjs": "^20.0.3",
-    "eosjs-ecc": "^4.0.7",
-    "js-md5": "^0.7.3",
-    "less": "^3.12.2",
-    "less-loader": "^6.2.0"
+    "webpack-bundle-analyzer": "^4.4.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.4.4",

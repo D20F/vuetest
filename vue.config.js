@@ -9,6 +9,10 @@ function resolve(dir) {
 
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
+
+
+
+
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
     'publicPath': './',
@@ -34,5 +38,10 @@ module.exports = {
     },
     'transpileDependencies': [
         'vuetify'
-    ]
+    ],
+    chainWebpack: config => {
+        config
+            .plugin('webpack-bundle-analyzer')
+            .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)  //在8888端口打开页面
+    }
 }

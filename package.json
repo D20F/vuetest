@@ -26,7 +26,7 @@
     "viser-vue": "^2.4.8",
     "vue": "2.6.10",
     "vue-router": "3.0.6",
-    "vuetify": "^2.2.11",
+    "vuetify": "^2.6.10",
     "vuex": "3.1.0",
     "webpack-bundle-analyzer": "^4.4.1"
   },
